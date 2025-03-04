@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+    <title>Приветствие</title>
+</head>
+<body>
+    <h1>Hello, {{ name }}!</h1>
+
+    <h2>Registered users:</h2>
+    <table>
+        <tr>
+            <th>User</th>
+            <th>Age</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.age }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>—</td>
+            <td>—</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
