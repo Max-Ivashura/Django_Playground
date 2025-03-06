@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ book.title }}</title>
+</head>
+<body>
+    <h1>{{ book.title }}</h1>
+    <p>Автор: {{ book.author }}</p>
+    <p>Дата публикации: {{ book.published_date }}</p>
+    <p>Цена: ${{ book.price }}</p>
+    <a href="{% url 'book_update' book.id %}">Обновить</a>
+    <a href="{% url 'book_delete' book.id %}">Удалить</a>
+    <a href="{% url 'book_list' %}">Назад к списку</a>
+    <h2>Комментарии:</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.text }} ({{ comment.user.username }}, {{ comment.created_at|date:"Y-m-d H:i" }})</li>
+        {% empty %}
+            <li>Нет комментариев.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Оценить книгу:</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ rating_form.as_p }}
+        <button type="submit">Оценить</button>
+    </form>
+
+    <h3>Добавить комментарий:</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+</body>
+</html>

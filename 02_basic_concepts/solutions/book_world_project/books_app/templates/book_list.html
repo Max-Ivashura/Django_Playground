@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список книг</title>
+</head>
+<body>
+    <h2>Поиск</h2>
+    <form method="get">
+    {{ form.as_p }}
+    <button type="submit">Найти</button>
+    </form>
+    <h1>Список книг</h1>
+    <ul>
+        {% for book in page_obj %}
+            <li>
+                {{ book.title }} ({{ book.author }}) - ${{ book.price }}
+                <a href="{% url 'book_detail' book.id %}">Детали</a>
+                <a href="{% url 'book_update' book.id %}">Обновить</a>
+                <a href="{% url 'book_delete' book.id %}">Удалить</a>
+            </li>
+        {% empty %}
+            <li>Нет книг.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'book_create' %}">Добавить книгу</a>
+    <p>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>
