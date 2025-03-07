@@ -1,0 +1,9 @@
+<h1>Ваши тренировки</h1>
+<ul>
+    {% for workout in workouts %}
+        <li>{{ workout.name }} — {{ workout.duration }} мин.</li>
+    {% empty %}
+        <li>Нет тренировок.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'add_workout' %}">Добавить тренировку</a>

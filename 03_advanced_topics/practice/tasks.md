@@ -214,12 +214,12 @@
    @login_required
    def workout_list(request):
        workouts = Workout.objects.filter(user=request.user)
-       return render(request, 'workouts/workout_list.html', {'workouts': workouts})
+       return render(request, 'workouts/workout_list.html.html', {'workouts': workouts})
    ~~~
 
 2. **URL для view**:
    ~~~python
-   path('workouts/', views.workout_list, name='workout_list'),
+   path('workouts/', views.workout_list, name='workout_list.html'),
    ~~~
 
 3. **Шаблон `workout_list.html`**:
@@ -335,7 +335,7 @@
                workout = form.save(commit=False)
                workout.user = request.user
                workout.save()
-               return redirect('workout_list')
+               return redirect('workout_list.html')
        else:
            form = WorkoutForm()
        return render(request, 'workouts/add_workout.html', {'form': form})
